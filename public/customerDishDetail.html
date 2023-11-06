@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 10px;
+  background-color: #f7f6f7;
+  border-radius: 15px;
+  border: solid rgb(205, 202, 202) 1px;
+  box-shadow: 1px;
+  width:90%;
+  margin: 20px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.inCart {
+  background-color: #a0a29b;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  width: 100%;
+  cursor:default;
+  opacity: 0.7;
+}
+.listbtn {
+  background-color: #3a73f6;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+.listbtn:hover{
+  opacity: 1;
+
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.callout {
+  bottom: 35px;
+  margin-left: 40px; 
+  border-radius:5px;
+  padding: 10px;
+  background: #eeeee4;
+  font-size: 12px;
+  color: #1e81b0;
+  width:87%;
+  height:4%;
+  margin-top:20px;
+  display: none;
+}
+.closebtn {
+  float:right;
+  top: 10px;
+  right: 15px;
+  color: #1e81b0;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.closebtn:hover {
+  color: 154c79;
+}
+.logoutButton {
+      background-color: #e65124;
+      color: #ddd;
+      width: 100px;
+      height: 30px;
+      margin: 20px;
+      float:right;
+      margin-right: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      border-color: transparent;
+    }
+    .logoutButton:hover {
+      background-color: #a73512;
+      color: #fff;
+    }
+.spanTag{
+font-size: 16px;
+  color: #1e81b0;
+}
+.selectpicker{
+    /* { */
+    width: 200px;
+    height: 30px;
+    font-size: large;
+    font-family: serif;
+    margin: 20px;
+/* } */
+}
+</style>
+
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script  src="./customerDishDetail.js">
+
+  
+</script>
+<body>
+
+<form>
+    <div class="callout" id="showMessage">
+        <span id="message" class="spanTag"></span>
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+       
+      </div>
+  <div class="container" >
+    <div>
+        
+      <input class="logoutButton" type="button" onclick="logout()" value="logout" /></div>
+    <h1>Dish Detail</h1>
+    <label for="name"><b>Name</b></label>
+    <input type="text" placeholder="Enter Name" name="name" id="name" readonly>
+
+    <label for="price"><b>Price</b></label>
+    <input type="text" placeholder="Enter Price" name="price" id="price" readonly>
+
+    <label for="psw"><b>DishType</b></label>
+    <select id="dishType" class="selectpicker" disabled>
+        <option value="VEG">VEG</option>
+        <option value="NON_VEG">NON_VEG</option>
+    </select>
+    <br/>
+    
+    <label for="image"><b>Image</b></label>
+    <input type="text" placeholder="Enter image Url" name="image" id="image" readonly>
+    
+    <label for="psw"><b>Quantity</b></label>
+    <select id="quantity" class="selectpicker">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+
+    </select>
+    <button id="addToCart" type="button" class="registerbtn" onclick="addItemToCart()" ><span class="glyphicon glyphicon-shopping-cart"></span> Add to cart </button>
+    <button style="display:none;" id="inCart" type="button" class="inCart"  > Already in cart </button>
+    <button type="button" class="listbtn" onclick="backToList()" ><span class="glyphicon glyphicon-list"></span> Home </button>
+    
+    <!-- <button type="button"id="isUpdate" class="registerbtn" onclick="updateDish()" style="display: none;" >Update</button> -->
+    
+    <!-- <label><h4>Already have an account? <a href="/login">Sign in</a>.</h4></label> -->
+  </div>
+  
+  
+</form>
+
+</body>
+</html>

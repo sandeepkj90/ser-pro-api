@@ -1,0 +1,754 @@
+{
+	"info": {
+		"_postman_id": "ac4fb5fe-2a47-49ae-b10c-79bbbec69794",
+		"name": "hotel_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Sree\",\n    \"email\":\"sree@gmail.com\",\n    \"password\":\"asdf1234\",\n    \"role\":\"CHEF\",\n    \"address\":\"INDIA\",\n    \"phone\":\"76768686878\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"sandy@gmail.com\",\n    \"password\":\"asdf1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"lekha@gmail.com\",\n    \"password\" : \"asdf1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chef Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"sree@gmail.com\",\n    \"password\" : \"asdf1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Dishes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjY5MTE3OTI0fQ.gVYGfNmZbELfoH6fn2Bvki6eoLun-oIeSO20goPpNLI",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Idly\",\n    \"price\":90,\n    \"dishType\":\"VEG\",\n    \"image\":\"http://localhost:4000/img/data3.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/dishes/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"dishes",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item to cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGFsbGF2aSIsImVtYWlsIjoicGFsbGF2aUBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzdmN2U5OTk3N2MwNmE5YjgwMjFkMDgiLCJpYXQiOjE2NjkzODUzNDd9.qUVjzFHPuPF1nnVWfMZBM8RlcclZ2Zk_3QMvuWbgemI",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\":{\"item\":\"637cb80c4dbc0f9d5f1cc0af\",\"quantity\":4}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/carts/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"carts",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSBMZWtoYSIsImVtYWlsIjoibGVraGFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiX2lkIjoiNjM4MjA3M2VmMjYyYTY2ODQ1YzE4N2FkIiwiaWF0IjoxNjY5NDY3NzgwfQ.1LGAnOK4U5vlKiUpV7miYY6xfgzyy5zepH3B9YyHpio",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"item\": \"6381c437bcfd3705759b154d\",\n            \"quantity\": 4\n        },\n        {\n            \"item\": \"6381c7afbcfd3705759b1573\",\n            \"quantity\": 1\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all order for Admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU2FuZGVlcCIsImVtYWlsIjoic2FuZHlAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiX2lkIjoiNjM4MWI3MDJmOTc3NzE4NzdlYjJjNzU2IiwiaWF0IjoxNjY5NTMwMDIxfQ.2lpswMiGs5Z8ey3aj7Cc4qz9KNkETE-Z5xYVZO9NQAw",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/orders/getList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"getList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order By UserId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSBMZWtoYSIsImVtYWlsIjoibGVraGFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiX2lkIjoiNjM4MjA3M2VmMjYyYTY2ODQ1YzE4N2FkIiwiaWF0IjoxNjY5NTIwNzg4fQ.ogQBIGatu5V0ylrPGmx0s_KsFup7R4dIdKyVjiNr8ls",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/orders/getByUserId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"getByUserId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order By OrderId",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiX2lkIjoiNjM2NTE1ZGEwMWUwM2FkNjhkNjhjOWRiIiwiaWF0IjoxNjY5Mzg2MTA4fQ.A89bGxqQ7CmsJZ4900GvDQdtzmd8waCjj3m8pz6-SRQ",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/orders/getByOrderId/63820ef2985950bb1a6a95c0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"getByOrderId",
+						"63820ef2985950bb1a6a95c0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order COnfirmed by Admin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiX2lkIjoiNjM2NTE1ZGEwMWUwM2FkNjhkNjhjOWRiIiwiaWF0IjoxNjY5Mzg2MTA4fQ.A89bGxqQ7CmsJZ4900GvDQdtzmd8waCjj3m8pz6-SRQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/orderConfirmedByAdmin/6380cd433442198dddd8d01f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"orderConfirmedByAdmin",
+						"6380cd433442198dddd8d01f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order  confirmed by chef",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSIsImVtYWlsIjoic3JlZUBnbWFpbC5jb20iLCJyb2xlIjoiQ0hFRiIsIl9pZCI6IjYzNzM5MjBlMGU1YWY3MGVjNDQ5ZTc0OSIsImlhdCI6MTY2OTM4NzA5NX0.Td-hKP7Or2Zrp9XE-O0i45c3vbCLMV9HFnR5bsYuzy0",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/orderConfirmedByChef/6380cd433442198dddd8d01f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"orderConfirmedByChef",
+						"6380cd433442198dddd8d01f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ready To serve Order",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSIsImVtYWlsIjoic3JlZUBnbWFpbC5jb20iLCJyb2xlIjoiQ0hFRiIsIl9pZCI6IjYzNzM5MjBlMGU1YWY3MGVjNDQ5ZTc0OSIsImlhdCI6MTY2OTM4NzU4Nn0.tIWR_UVZCmDeD0Ae48I1CFbuSjhsChSc2Nlp1cooL2Q",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/orderReadyToServe/6380cd433442198dddd8d01f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"orderReadyToServe",
+						"6380cd433442198dddd8d01f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get the bills",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSBMZWtoYSIsImVtYWlsIjoibGVraGFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiX2lkIjoiNjM4MjA3M2VmMjYyYTY2ODQ1YzE4N2FkIiwiaWF0IjoxNjY5NTIwNzg4fQ.ogQBIGatu5V0ylrPGmx0s_KsFup7R4dIdKyVjiNr8ls",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/getBill/63820ef2985950bb1a6a95c0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"getBill",
+						"63820ef2985950bb1a6a95c0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLose the order by admin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiX2lkIjoiNjM2NTE1ZGEwMWUwM2FkNjhkNjhjOWRiIiwiaWF0IjoxNjY5Mzg3NzgxfQ.3PWFcUBiZFh2EeY_-jWP2ldL14MWWNGtSSHhVA8uL1o",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/orders/closeOrder/6380cd433442198dddd8d01f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"closeOrder",
+						"6380cd433442198dddd8d01f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all order for Chef",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSIsImVtYWlsIjoic3JlZUBnbWFpbC5jb20iLCJyb2xlIjoiQ0hFRiIsIl9pZCI6IjYzNzM5MjBlMGU1YWY3MGVjNDQ5ZTc0OSIsImlhdCI6MTY2OTM4NjIxNn0.tJ7bwx7ga9KH-ERTes97_W4bTrup1ry2NU5JbugSeOs",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/orders/getList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"orders",
+						"getList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get the detail of cart based on user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSBMZWtoYSIsImVtYWlsIjoibGVraGFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiX2lkIjoiNjM4MjA3M2VmMjYyYTY2ODQ1YzE4N2FkIiwiaWF0IjoxNjY5NDY3NzgwfQ.1LGAnOK4U5vlKiUpV7miYY6xfgzyy5zepH3B9YyHpio",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\":\"637cb83d4dbc0f9d5f1cc0b5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/carts/getByUserId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"carts",
+						"getByUserId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete item from cart",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUGFsbGF2aSIsImVtYWlsIjoicGFsbGF2aUBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzdmN2U5OTk3N2MwNmE5YjgwMjFkMDgiLCJpYXQiOjE2NjkzMDA5Njh9.KoQ8lLiMAM-NVa6P1_o_HbB40vozNekeVaJIpzkhDQo",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/carts/deleteById/637cb82d4dbc0f9d5f1cc0b3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"carts",
+						"deleteById",
+						"637cb82d4dbc0f9d5f1cc0b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get List of Dishes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiU3JlZSBMZWtoYSIsImVtYWlsIjoibGVraGFAZ21haWwuY29tIiwicm9sZSI6IkNVU1RPTUVSIiwiX2lkIjoiNjM4MjA3M2VmMjYyYTY2ODQ1YzE4N2FkIiwiaWF0IjoxNjY5NDY3NzgwfQ.1LGAnOK4U5vlKiUpV7miYY6xfgzyy5zepH3B9YyHpio",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/dishes/getList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"dishes",
+						"getList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get dish by Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSGltYSIsImVtYWlsIjoiaGltYUBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE2NjkxMTgxMTJ9.7l0naAlBDUc8vNhFe0iCsTdgrGH4hX7cAeYx1j1QKzM",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/dishes/getById/637cb84a4dbc0f9d5f1cc0b7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"dishes",
+						"getById",
+						"637cb84a4dbc0f9d5f1cc0b7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete dishes by Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjY4NjgzMTIwfQ.sZoAdL2g3tCM_59bHdEVHRuyb-79uo8s2fjuoBzSaRI",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/dishes/deleteById/637392280e5af70ec449e74c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"dishes",
+						"deleteById",
+						"637392280e5af70ec449e74c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update dish by Id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoic2FuZGVlcCIsImVtYWlsIjoic2FuZGVlcGtqOTBAZ21haWwuY29tIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjY4NjgzMTIwfQ.sZoAdL2g3tCM_59bHdEVHRuyb-79uo8s2fjuoBzSaRI",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dishType\":\"NON_VEG\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/dishes/updateById/6381c445bcfd3705759b154f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"dishes",
+						"updateById",
+						"6381c445bcfd3705759b154f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "forgot password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"sandeepkj90@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/forgotPassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"forgotPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"sandeepkj90@gmail.com\",\n    \"otp\":\"1822\",\n    \"password\":\"qwerty1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/resetPassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"resetPassword"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
