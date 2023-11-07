@@ -1,5 +1,5 @@
 const Constant = {
-  DATABASE_NAME: 'ser-pro-db',
+  DATABASE_NAME: 'flow-proximity-db',
   COLLECTION_NAME: {
     USER: 'users',
     DISH: 'dishes',
