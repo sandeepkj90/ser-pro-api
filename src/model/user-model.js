@@ -32,11 +32,15 @@ const UserSchema = new Schema({
     enum: ['ADMIN', 'CUSTOMER', 'TECHNICIAN'],
     default: 'CUSTOMER',
   },
+  pincode: {
+    type: String,
+    required: true,
+  },
   otp: {
     type: Number,
     default: 1234,
   },
-  expertiseOn: [
+  skills: [
     {
       type: String,
       default: '',

@@ -53,23 +53,26 @@ app.use('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-UserDAO.isUserExist({ email: 'sandy@gmail.com' }).then((result) => {
-  if (result) console.log('Admin already registered');
-  else {
-    UserDAO.register({
-      firstName: 'Sandeep',
-      lastName: 'Jaiswal',
-      email: 'sandy@gmail.com',
-      password: 'asdf1234',
-      role: 'ADMIN',
-      address: 'NEPAL',
-      phone: 76768686878,
-      status: 'APPROVED',
-    }).then((response) => {
-      console.log('Admin Registered successfully');
-    });
+UserDAO.isUserExist({ email: 'sandy@gmail.com', password: 'asdf1234' }).then(
+  (result) => {
+    if (result) console.log('Admin already registered');
+    else {
+      UserDAO.register({
+        firstName: 'Sandeep',
+        lastName: 'Jaiswal',
+        email: 'sandy@gmail.com',
+        password: 'asdf1234',
+        role: 'ADMIN',
+        address: 'NEPAL',
+        phone: 76768686878,
+        status: 'APPROVED',
+        pincode: '560035',
+      }).then((response) => {
+        console.log('Admin Registered successfully');
+      });
+    }
   }
-});
+);
 
 app.listen(Constant.PORT, () => {
   console.log(`Listening to port ${Constant.PORT}`);

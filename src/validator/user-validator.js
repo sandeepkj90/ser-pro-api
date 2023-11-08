@@ -13,9 +13,10 @@ const customerSchema = Joi.object({
   address: Joi.string().required(),
   role: Joi.string().valid('CUSTOMER', 'TECHNICIAN', 'ADMIN').required(),
   profilePic: Joi.string().allow(''),
-  expertiseOn: Joi.array().when('role', {
+  pincode: Joi.string().required(),
+  skills: Joi.array().when('role', {
     is: 'TECHNICIAN',
-    then: Joi.array().length(1).required(),
+    then: Joi.array().items(Joi.string().required()),
     otherwise: Joi.allow(''),
   }),
   legalDocs: Joi.string(),

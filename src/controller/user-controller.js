@@ -6,6 +6,7 @@ const UserValidator = require('../validator/user-validator');
 // const Joi = require('joi');
 route.post('/register', (req, res) => {
   let payloadData = req.body;
+  console.log('payload--inside register data', JSON.stringify(payloadData));
   let { error, value } = UserValidator.validate(payloadData);
   if (error)
     return res.send(

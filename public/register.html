@@ -24,8 +24,10 @@
 
       /* Full-width input fields */
       input[type='text'],
-      input[type='password'] {
+      input[type='password'],
+      textarea {
         width: 100%;
+        font-size: 15px;
         padding: 15px;
         margin: 5px 0 22px 0;
         display: inline-block;
@@ -34,7 +36,8 @@
       }
 
       input[type='text']:focus,
-      input[type='password']:focus {
+      input[type='password']:focus,
+      textarea:focus {
         background-color: #ddd;
         outline: none;
       }
@@ -111,6 +114,7 @@
     rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
   />
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="./register.js"></script>
@@ -120,9 +124,9 @@
     }
     .container {
       padding-top: 0px;
-      width: 50%;
-      height: 500px;
-      margin-top: 100px;
+      width: 70%;
+      height: auto;
+      margin-top: 20px;
       border-radius: 0px;
     }
     .container h1 {
@@ -132,6 +136,86 @@
     input:focus {
       outline: none;
       border: 1px #4b7dda solid;
+    }
+
+    /* select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 5px;
+    }
+    select option {
+      margin-top: 20px;
+    } */
+    .custom-select {
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 7px;
+      border: 0.5px #ccc9c9 solid;
+      background: #f1f1f1;
+    }
+    /* .right {
+      padding: 0px 0px 14px 0px;
+      float: right;
+    } */
+
+    .right img {
+      border: 1px #3473e6 solid;
+      border-radius: 5px;
+      margin: 5px;
+      margin-left: 89px;
+      margin-right: 0px;
+    }
+    input[type='file'] {
+      color: transparent;
+      border: none;
+      margin-left: 100px;
+    }
+    .address-info {
+      padding-left: 35px;
+    }
+    .show-technicians {
+      display: none;
+    }
+    .show-technicians > a {
+      text-decoration: none;
+      color: whitesmoke;
+      background: #1638c4;
+      box-shadow: 1px black solid;
+      padding: 17px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .skillList {
+      padding-top: 35px;
+      margin-left: -12px;
+    }
+    #skillList > span {
+      color: rgb(88, 84, 84);
+      background: #ccc9c9;
+      border-radius: 5px;
+      box-shadow: 1px gainsboro solid;
+      padding: 9px;
+      margin: 5px;
+      margin-top: 10px;
+    }
+    #skillList > a {
+      text-decoration: none;
+      position: absolute;
+      top: 13px;
+      right: 20px;
+      color: white;
+      background: #d76117;
+      border-radius: 30%;
+      width: 18px;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+    #skillList > a:hover {
+      color: white;
+      background: #8d3d0b;
     }
   </style>
   <body>
@@ -146,19 +230,44 @@
       </div>
       <div class="container">
         <h1>Register</h1>
+        <br />
+        <div class="md-col-12">
+          <div class="col-md-4">
+            <label for="fname"><b>First Name</b></label>
+            <input
+              type="text"
+              placeholder="Enter First Name"
+              name="fname"
+              id="fname"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="fname"><b>Last Name</b></label>
+            <input
+              type="text"
+              placeholder="Enter Last Name"
+              name="lname"
+              id="lname"
+              required
+            />
+          </div>
+          <div class="col-md-4 right">
+            <img
+              src="./profile_icon.jpeg"
+              id="uploadPreview"
+              width="100px"
+              height="100px"
+              alt=""
+            />
+
+            <input type="file" id="uploadImage" onchange="PreviewImage();" />
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-12">
-            <div class="col-md-6">
-              <label for="name"><b>Name</b></label>
-              <input
-                type="text"
-                placeholder="Enter Name"
-                name="name"
-                id="name"
-                required
-              />
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="email"><b>Email</b></label>
               <input
                 type="text"
@@ -168,11 +277,7 @@
                 required
               />
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="psw"><b>Password</b></label>
               <input
                 type="password"
@@ -182,21 +287,7 @@
                 required
               />
             </div>
-            <div class="col-md-6">
-              <label for="address"><b>Address</b></label>
-              <input
-                type="text"
-                placeholder="Enter Address"
-                name="address"
-                id="address"
-                required
-              />
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="phone"><b>Phone</b></label>
               <input
                 type="text"
@@ -206,6 +297,64 @@
                 required
               />
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-4">
+              <label for="role"><b>Role As</b></label
+              ><br />
+              <select
+                id="role"
+                class="custom-select"
+                onchange="onChangeRole(this)"
+              >
+                <option value="CUSTOMER" selected>USER</option>
+                <option value="TECHNICIAN">TECHNICIAN</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="pincode"><b>Pincode</b></label>
+              <input
+                style="width: 95%"
+                type="text"
+                placeholder="Enter Pincode"
+                name="pincode"
+                id="pincode"
+                required
+              />
+            </div>
+            <div class="col-md-4 show-technicians" id="showSkill">
+              <label style="display: block" for="skills"><b>Skills</b></label>
+              <input
+                style="width: 78%"
+                type="text"
+                placeholder="Enter Skill"
+                name="skills"
+                id="skill"
+              /><a onclick="addSkill()"> +</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7 address-info">
+            <!-- <div class="col-md-6"> -->
+            <label for="address"><b>Address</b></label>
+            <textarea
+              type="text"
+              rows="2"
+              placeholder="Enter Address"
+              name="address"
+              id="address"
+              required
+            ></textarea>
+            <!-- </div> -->
+          </div>
+          <div class="col-md-5 skillList" id="skillList">
+            <a id="closeData" class="show-technicians" onclick="clearData()"
+              >X</a
+            >
           </div>
         </div>
 
