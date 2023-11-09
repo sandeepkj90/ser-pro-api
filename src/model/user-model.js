@@ -1,5 +1,5 @@
-const mongoose = require('../../database');
-const Constant = require('../utils/constant');
+const mongoose = require("../../database");
+const Constant = require("../utils/constant");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -25,12 +25,12 @@ const UserSchema = new Schema({
   },
   address: {
     type: String,
-    default: '',
+    default: "",
   },
   role: {
     type: String,
-    enum: ['ADMIN', 'CUSTOMER', 'TECHNICIAN'],
-    default: 'CUSTOMER',
+    enum: ["ADMIN", "CUSTOMER", "TECHNICIAN"],
+    default: "CUSTOMER",
   },
   pincode: {
     type: String,
@@ -43,7 +43,7 @@ const UserSchema = new Schema({
   skills: [
     {
       type: String,
-      default: '',
+      default: "",
     },
   ],
   rating: {
@@ -53,21 +53,21 @@ const UserSchema = new Schema({
   reviews: [
     {
       type: String,
-      default: '',
+      default: "",
     },
   ],
   legalDocs: {
     type: String,
-    default: '',
+    default: "",
   },
   profilePic: {
     type: String,
-    default: '',
+    default: "",
   },
   status: {
     type: String,
-    enum: ['APPROVED', 'INPROGRESS', 'BLOCKED'],
-    default: 'INPROGRESS',
+    enum: ["APPROVED", "INPROGRESS", "BLOCKED"],
+    default: "INPROGRESS",
   },
   date: {
     type: Date,
