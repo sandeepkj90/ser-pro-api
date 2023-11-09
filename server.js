@@ -38,16 +38,11 @@ app.use('/dishDetail', (req, res) => {
 app.use('/cartDetail', (req, res) => {
   res.sendFile(__dirname + '/public/cart.html');
 });
-app.use('/order', (req, res) => {
-  res.sendFile(__dirname + '/public/order.html');
-});
-app.use('/orderDetail', (req, res) => {
-  res.sendFile(__dirname + '/public/orderDetail.html');
-});
 app.use('/users', require('./src/controller/user-controller'));
-app.use('/dishes', require('./src/controller/dishes-controller'));
-app.use('/carts', require('./src/controller/cart-controller'));
-app.use('/orders', require('./src/controller/order-controller'));
+app.use(
+  '/serviceReqquests',
+  require('./src/controller/service-req-controller')
+);
 
 app.use('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');

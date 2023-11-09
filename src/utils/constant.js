@@ -3,7 +3,7 @@ const Constant = {
   COLLECTION_NAME: {
     USER: 'users',
     DISH: 'dishes',
-    CART: 'carts',
+    SERVICE_REQ: 'service-req',
     ORDER: 'orders',
   },
   PORT: 4000,

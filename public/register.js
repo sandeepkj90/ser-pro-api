@@ -33,7 +33,7 @@ function onChangeRole(event) {
 }
 function addSkill() {
   if (skillList.length < 4) {
-    let skill = document.getElementById('skill').value;
+    let skill = document.getElementById('skills').value;
     skillList.push(skill);
     $('#closeData').css('display', 'block');
 
@@ -41,7 +41,7 @@ function addSkill() {
     let span = document.createElement('span');
     span.textContent = skill;
     div.appendChild(span);
-    document.getElementById('skill').value = '';
+    document.getElementById('skills').value = '';
   } else {
     $('#showMessage').css('display', 'block');
     $('#message').text('Maximum 3 skills allowed.');
@@ -52,17 +52,44 @@ function addSkill() {
 }
 function register() {
   let obj = {
-    firstName: document.getElementById('fname').value,
-    lastName: document.getElementById('lname').value,
+    firstName: document.getElementById('firstName').value,
+    lastName: document.getElementById('lastName').value,
     email: document.getElementById('email').value,
     role: document.getElementById('role').value,
     password: document.getElementById('password').value,
-    pincode: document.getElementById('pincode').value,
     phone: document.getElementById('phone').value,
+    pincode: document.getElementById('pincode').value,
     address: document.getElementById('address').value,
-    skills: skillList,
+    // skills: skillList,
+    ...(document.getElementById('role').value == 'TECHNICIAN' && {
+      skills: skillList,
+    }),
   };
+  for (let i in obj) {
+    if (obj[i] == '' || obj[i] == []) {
+      $(`#${i}`).css('border', '1px red solid');
+      $('#message').css('color', 'red');
+
+      $('#showMessage').css('display', 'block');
+      $('#showMessage').css('background', '#f2dede');
+
+      let key = i[0].toUpperCase() + i.slice(1);
+      $('#message').text(`${key} is Required.`);
+
+      setTimeout(() => {
+        $('#showMessage').css('display', 'none');
+        $(`#${i}`).css('border', 'none');
+        $('#message').css('color', '#1e81b0');
+
+        // window.location.href = '/register';
+      }, 3000);
+      return;
+    } else {
+      $(`#${i}`).css('border', 'none');
+    }
+  }
   console.log('hello ', obj);
+
   $.ajax({
     method: 'POST',
     url: '/users/register',

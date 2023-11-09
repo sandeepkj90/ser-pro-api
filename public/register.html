@@ -21,7 +21,6 @@
         width: 90%;
         margin: 20px;
       }
-
       /* Full-width input fields */
       input[type='text'],
       input[type='password'],
@@ -50,13 +49,13 @@
 
       /* Set a style for the submit button */
       .registerbtn {
-        background-color: #1638c4;
+        background-color: cadetblue;
         color: white;
         padding: 16px 20px;
-        margin: 8px 0;
+        margin: 8px 10px;
         border: none;
         cursor: pointer;
-        width: 100%;
+        width: 99%;
         opacity: 0.9;
       }
 
@@ -80,14 +79,14 @@
 
       .callout {
         bottom: 35px;
-        margin-left: 40px;
+        margin-left: 50px;
         border-radius: 5px;
-        padding: 10px;
-        background: #eeeee4;
+        padding: 4px;
+        background: #0b0f7d;
         font-size: 12px;
-        color: #1e81b0;
-        width: 87%;
-        height: 4%;
+        color: #fff;
+        width: 50%;
+        height: 5%;
         margin-top: 20px;
         display: none;
       }
@@ -95,9 +94,15 @@
         float: right;
         top: 10px;
         right: 15px;
-        color: #1e81b0;
+        color: #b0421e;
         font-size: 20px;
         cursor: pointer;
+      }
+      .float-top {
+        position: absolute;
+        z-index: 2;
+        top: -18px;
+        right: 17px;
       }
 
       .closebtn:hover {
@@ -105,7 +110,7 @@
       }
       .spanTag {
         font-size: 16px;
-        color: #1e81b0;
+        color: #eff4f7;
       }
     </style>
   </head>
@@ -120,7 +125,7 @@
   <script src="./register.js"></script>
   <style>
     body {
-      background-color: cornflowerblue;
+      background-color: cadetblue;
     }
     .container {
       padding-top: 0px;
@@ -219,36 +224,34 @@
     }
   </style>
   <body>
+    <div class="callout float-top" id="showMessage">
+      <span id="message" class="spanTag">hello</span>
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >×</span
+      >
+    </div>
     <form>
-      <div class="callout" id="showMessage">
-        <span id="message" class="spanTag">hello</span>
-        <span
-          class="closebtn"
-          onclick="this.parentElement.style.display='none';"
-          >×</span
-        >
-      </div>
       <div class="container">
         <h1>Register</h1>
         <br />
         <div class="md-col-12">
           <div class="col-md-4">
-            <label for="fname"><b>First Name</b></label>
+            <label for="firstName"><b>First Name</b></label>
             <input
               type="text"
               placeholder="Enter First Name"
-              name="fname"
-              id="fname"
+              name="firstName"
+              id="firstName"
               required
             />
           </div>
           <div class="col-md-4">
-            <label for="fname"><b>Last Name</b></label>
+            <label for="lastName"><b>Last Name</b></label>
             <input
               type="text"
               placeholder="Enter Last Name"
-              name="lname"
-              id="lname"
+              name="lastName"
+              id="lastName"
               required
             />
           </div>
@@ -332,7 +335,7 @@
                 type="text"
                 placeholder="Enter Skill"
                 name="skills"
-                id="skill"
+                id="skills"
               /><a onclick="addSkill()"> +</a>
             </div>
           </div>
@@ -361,9 +364,9 @@
         <button type="button" class="registerbtn" onclick="register()">
           Register
         </button>
-        <h4 style="text-align: center">
+        <span style="margin-left: 30px; font-size: 16px">
           Already have an account? <a href="/login">Sign in</a>.
-        </h4>
+        </span>
       </div>
     </form>
   </body>

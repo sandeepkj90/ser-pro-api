@@ -69,6 +69,10 @@ const UserSchema = new Schema({
     enum: ['APPROVED', 'INPROGRESS', 'BLOCKED'],
     default: 'INPROGRESS',
   },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model(Constant.COLLECTION_NAME.USER, UserSchema);

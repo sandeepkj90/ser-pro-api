@@ -1,263 +1,258 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
 
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        /* Add padding to containers */
-        .container {
-            background-color: white;
-            border-radius: 5px;
-            border: solid rgb(205, 202, 202) 1px;
-            box-shadow: 1px;
-            margin: 20px;
-        }
-
-
-
-        /* Overwrite default styles of hr */
-        hr {
-            border: 1px solid #f1f1f1;
-            margin-bottom: 25px;
-        }
-
-        /* Set a style for the submit button */
-        .registerbtn {
-            background-color: #04AA6D;
-            color: white;
-            padding: 16px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            opacity: 0.9;
-        }
-
-        .registerbtn:hover {
-            opacity: 1;
-        }
-
-        /* Add a blue text color to links */
-        a {
-            color: dodgerblue;
-        }
-
-        /* Set a grey background color and center the text of the "sign in" section */
-        .signin {
-            background-color: #f1f1f1;
-            text-align: center;
-        }
-
-
-
-        .fa-check {
-            color: green;
-        }
-
-        .fa-remove {
-            color: red;
-        }
-        .myOrder {
-      background-color: #49c033;
-      color: #f7f3f3;
-      width: 100px;
-      height: 30px;
-      margin: 10px;
-      float:right;
-      margin-right: 400px;
-      /* margin-left: 98px; */
-      cursor: pointer;
-      border-radius: 4px;
-      border-color: transparent;
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- <script src="./admin.js"></script> -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .clear {
+      clear: both;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.4em;
+      overflow: hidden;
+    }
+    #navbar {
+      background-color: cadetblue;
+      overflow: auto;
+      width: 86%;
+      /* float: right; */
+      margin-left: 14%;
+      margin-bottom: 2px;
+      box-shadow: 0.1em 0.09em 0.1em 0.09em rgba(28, 90, 71, 0.358);
+    }
+    h1,
+    h2,
+    h3,
+    p {
+      padding: 0px;
+      margin: 0px;
+    }
+    a {
+      text-decoration: none;
+      color: white;
+    }
+    /* .main-header {
+      margin: auto;
+    } */
+    #navbar h2 {
+      float: left;
+      font-size: 25px;
+      padding: 20px;
+    }
+    #navbar a {
+      text-decoration: none;
     }
 
-    .logoutButton {
-      background-color: #e65124;
-      color: #ddd;
-      width: 100px;
-      height: 30px;
-      margin: 10px;
-      float:right;
-      margin-right: 10px;
-      /* margin-left: 98px; */
+    #navbar .right {
+      float: right;
+      width: 20%;
+      padding: 17px;
+    }
+    .right .logout-icon {
+      /* padding-top: 22px; */
+      padding: 7px;
+      background: rgb(229, 100, 100);
+      color: whitesmoke;
+      border-radius: 2px;
       cursor: pointer;
-      border-radius: 4px;
-      border-color: transparent;
+      margin-left: 10px;
     }
 
-        .create-dish {
-            background-color: green;
-            color: #fff;
-            width: 200px;
-            height: 40px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: large;
-            margin: 20px;
-            cursor: pointer;
-            border-radius: 1px;
-        }
+    #navbar img {
+      border-radius: 50%;
+      width: 40px;
+      margin-right: 3px;
+      height: 10%;
+      cursor: pointer;
+    }
 
-        .create-dish:hover {
-            background-color: #034903;
-            color: #fff;
-            border-radius: 1px;
-        }
+    .clear {
+      clear: both;
+    }
+    #side-bar {
+      background: cadetblue;
+      /* margin-top: -10px; */
+      width: 14%;
+      float: left;
+      /* margin-right: 3px; */
+      margin-bottom: -101%;
+      padding-bottom: 101%;
+      box-shadow: 0.1em 0.09em 0.1em 0.09em rgba(28, 90, 71, 0.358);
+    }
 
+    #right-side {
+      background: white;
+      margin-left: 5px;
+      width: 84.5%;
+      float: left;
+      margin-bottom: -101%;
+      padding-bottom: 101%;
+    }
+    #service-side {
+      display: none;
+      background: white;
+      margin-left: 5px;
+      width: 84.5%;
+      float: left;
+      margin-bottom: -101%;
+      padding-bottom: 101%;
+    }
+    .side-menu {
+      padding: 10px 0px;
+    }
+    .side-menu ul {
+      /* text-align: center; */
+      /* padding: 10px; */
+    }
+    .side-menu li {
+      list-style: none;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      color: whitesmoke;
+      border-bottom: 1px white solid;
+    }
+    .side-menu li i {
+      color: whitesmoke;
+      margin-right: 20px;
+    }
+    .side-menu h2 {
+      text-align: center;
+      margin-top: 20px;
+      padding: 10px;
+      color: whitesmoke;
+      /* border-bottom: 1px whitesmoke solid; */
+      box-shadow: 0.01em 0.09em 0.1em 0.09em rgba(28, 90, 71, 0.358);
+    }
+    .side-menu li:hover,
+    .side-menu li i:hover {
+      color: cadetblue;
+      background: whitesmoke;
+    }
 
-        .logoutButton:hover {
-            background-color: #a73512;
-            color: #fff;
-        }
+    .side-menu a {
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 0px;
+    }
 
-        .deletebtn {
-            margin: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            color: #f05353;
-            box-shadow: none;
-            border: none;
-        }
+    .side-menu a:hover {
+      color: cadetblue;
+    }
+    .side-menu {
+      padding-top: 0px;
+    }
+    #right-side .container {
+      padding: 25px;
+      width: 100%;
+      overflow-y: scroll;
+    }
+    .polaroid {
+      width: 250px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    }
 
-        .updatebtn {
-            margin: 8px;
-            font-size: 15px;
-            margin-right: 20px;
-            cursor: pointer;
-            color: #2fc8f7;
-            box-shadow: none;
-            border: none;
-        }
-
-        .updatebtn:hover {
-            color: #1286a9;
-        }
-
-        .deletebtn:hover {
-            color: #b81f1f;
-
-        }
-
-        .callout {
-            bottom: 35px;
-            margin-left: 40px;
-            border-radius: 5px;
-            padding: 10px;
-            background: #eeeee4;
-            font-size: 12px;
-            color: #1e81b0;
-            width: 87%;
-            height: 4%;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .closebtn {
-            float: right;
-            top: 10px;
-            right: 15px;
-            color: #1e81b0;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .closebtn:hover {
-            color: 154c79;
-        }
-
-        .spanTag {
-            font-size: 16px;
-            color: #1e81b0;
-        }
-
-        .table-hover {
-            padding: 50px;
-
-        }
-
-        .confirm {
-            background-color: #04AA6D;
-            color: #fff;
-            padding: 5px;
-            cursor: pointer;
-            box-shadow: 5px;
-        }
-
-        .confirm:hover {
-            background-color: #047a4f;
-            color: #fff;
-            padding: 5px;
-            cursor: pointer;
-            box-shadow: 10px;
-        }
-    </style>
-</head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- <script src="./admin.js"></script> -->
-<script src="/admin.js"></script>
-<body>
-
-    <form>
-        <div class="callout" id="showMessage">
-            <span id="message" class="spanTag">hello</span>
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
-
+    .con {
+      padding: 10px;
+    }
+    .userMenu {
+      color: cadetblue;
+      background: whitesmoke;
+    }
+  </style>
+  <body>
+    <div class="main-page">
+      <div id="side-bar">
+        <div class="side-menu">
+          <h2>BTS</h2>
+          <br />
+          <ul>
+            <li
+              style="color: cadetblue; background: whitesmoke"
+              class="userMenu"
+              onclick="changePage('USER')"
+            >
+              <i
+                style="color: cadetblue; background: whitesmoke"
+                class="fa fa-users userMenu"
+                aria-hidden="true"
+              ></i>
+              User List
+            </li>
+            <li class="serviceMenu" onclick="changePage('SERVICE')">
+              <i class="fa fa-file serviceMenu" aria-hidden="true"></i>
+              Service List
+            </li>
+          </ul>
         </div>
-        
-        <h1 style="text-align:center;">Admin Home</h1>
-
-
+      </div>
+      <div id="navbar">
+        <!-- <h2><a href="index.html">BTS</a></h2> -->
+        <div class="right">
+          <img src="./profile_icon.jpeg" alt="" />
+          <span style="color: whitesmoke" id="setName">Sandy</span>
+          <span class="logout-icon" onclick="logout()"
+            ><i class="fa fa-sign-out" aria-hidden="true"></i
+          ></span>
+        </div>
+      </div>
+      <div id="right-side">
         <div class="container">
-            <div>
-                <div>
-                    <!-- <input class="create-dish" type="button" onclick="createDish()" value="Create Dish" /> -->
-                    <!-- <input class="create-dish" type="button" onclick="goToDish()" value="Add Dish" /> -->
-                    <!-- <input class="create-dish" type="button" onclick="createDish()" value="Create Dish" /> -->
-    
-                    <input class="logoutButton" type="button" onclick="logout()" value="logout" />
-                    <input class="myOrder" type="button" onclick="goToDish()" value="Add Dish" />
-                
-                </div>
-    
-            </div>
-            <h1>List of Orders</h1>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>OrderId</th>
-                        <th>Items Count</th>
-                        <th>Total Amount</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableData">
-
-                </tbody>
-
-
-            </table>
-            <!-- <p style="float:right"><label>Total Amount </label><input type="text" name="total Amount" id="totalAmount" readonly/></p> -->
-            <!-- <button type="button" class="listbtn" onclick="backToList()" ><span class="glyphicon glyphicon-list"></span> Home </button> -->
-
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Profile Pic</th>
+                <th>Skills</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tableData"></tbody>
+          </table>
         </div>
+      </div>
+      <div id="service-side">
+        <div class="container">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
 
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="serviceData"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-    </form>
-
-</body>
-
+    <script src="/admin.js"></script>
+  </body>
 </html>

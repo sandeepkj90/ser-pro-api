@@ -64,7 +64,7 @@ route.post('/login', (req, res) => {
 });
 
 route.get('/getUserList', (req, res) => {
-  let payloadData = req.body;
+  let payloadData = req.query;
   console.log('data inside controller', payloadData);
   UserService.getUserList(payloadData)
     .then((result) => {

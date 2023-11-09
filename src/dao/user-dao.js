@@ -32,7 +32,7 @@ const UserDAO = {
     );
   },
   getUserList: (payload) => {
-    return UserModel.find({ name: payload.name });
+    return UserModel.find({ role: { $ne: payload.role } }, { password: 0 });
   },
 };
 module.exports = UserDAO;
