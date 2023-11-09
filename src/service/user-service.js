@@ -97,5 +97,11 @@ const UserService = {
       });
     });
   },
+  getTechnician:() => {
+    return new Promise(async (resolve, reject) => {
+      let data = await UserDAO.getTechnician();
+      resolve({ data });
+    });
+  },
 };
 module.exports = UserService;

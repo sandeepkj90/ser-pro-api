@@ -40,5 +40,11 @@ const UserDAO = {
       { $set: { status: "APPROVED" } }
     );
   },
+  getTechnician: () => {
+    return UserModel.find(
+      { role: "TECHNICIAN", status: "APPROVED" },
+      { _id: 1, firstName: 1, phone: 1, skills: 1 }
+    );
+  },
 };
 module.exports = UserDAO;
