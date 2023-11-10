@@ -22,15 +22,94 @@ function changePage(pageName) {
       break;
     }
     case 'SERVICE': {
+      $('#serviceData').html('');
       $('#right-side').css('display', 'none');
       $('#service-side').css('display', 'block');
       $('.serviceMenu').css('color', 'cadetblue');
       $('.serviceMenu').css('background', 'whitesmoke');
       $('.userMenu').css('color', 'whitesmoke');
       $('.userMenu').css('background', 'cadetblue');
+      $.ajax({
+        method: 'GET',
+        url: '/serviceRequests/getListByUserId',
+        contentType: 'application/json',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET',
+          'Access-Control-Allow-Headers': 'application/json',
+          contentType: 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+        dataType: 'json',
+        success: function (response) {
+          //if request if made successfully then the response represent the data
+
+          console.log('response', response);
+          if (response.status == 200) {
+            // if(response.data && response.data.items && response.data.items.length>0){
+            // items = response.data;
+            let str = '';
+            //   {
+            //     "_id": "654de80e6ff9f63c2b1aefb0",
+            //     "userId": "654c10834081654b04a3bdba",
+            //     "title": "Pipe got damaged",
+            //     "date": "2023-11-10T08:19:41.777Z",
+            //     "description": "pipe got very damanged",
+            //     "pics": "uploads/1699604000072-imgback.jpg",
+            //     "status": "PENDING",
+            //     "__v": 0
+            // }
+            for (let it of response.data) {
+              str += `<tr>
+                            <td>${new Date(it.date).toLocaleDateString(
+                              'en-us',
+                              {
+                                year: 'numeric',
+                                month: 'short',
+                                day: 'numeric',
+                              }
+                            )}</td>
+                            <td>${it.title}</td>
+                            <td>${it.description}</td>
+                            <td><img src=uploads/${
+                              it.pics
+                            } alt='not found' width='50px' height='50px'/></td>
+                            
+                    <td>${it.status}</td>
+                    
+                            
+                            
+                        <td>${
+                          it.status == 'PENDING'
+                            ? '<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick=""><i class="fa fa-check" aria-hidden="true"></i></span>'
+                            : it.status == 'ACCEPTED'
+                            ? '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
+                            : '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
+                        }</td></tr>`;
+            }
+
+            // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+            $('#serviceData').append(str);
+
+            // $('#totalAmount').val(response.data.totalAmount)
+
+            // localStorage.setItem('token',response.token);
+          }
+        },
+        error: function (error) {
+          console.log('error', error);
+          //let data = JSON.stringify(error.responseJSON.message.message));
+          $('#showMessage').css('display', 'block');
+          $('#message').text(error.responseJSON.message);
+          setTimeout(() => {
+            $('#showMessage').css('display', 'none');
+          }, 3000);
+        },
+      });
     }
   }
 }
+
 function goToDish() {
   window.location.href = '/home';
 }

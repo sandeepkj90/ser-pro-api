@@ -7,7 +7,9 @@ const ServiceReqDAO = {
     }).save();
   },
   getListByUserId: (payload) => {
-    return ServiceReqModel.find({ userId: payload._id });
+    let query = {};
+    if (payload.role != 'ADMIN') query['userId'] = payload._id;
+    return ServiceReqModel.find(query);
   },
 };
 module.exports = ServiceReqDAO;

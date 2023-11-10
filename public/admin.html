@@ -166,6 +166,16 @@
       width: 100%;
       overflow-y: scroll;
     }
+    #service-side .container {
+      padding: 25px;
+      width: 100%;
+      height: 310px;
+      overflow-x: scroll;
+    }
+    #service-side .container-two {
+      padding: 25px;
+      width: 100%;
+    }
     .polaroid {
       width: 250px;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -179,6 +189,42 @@
     .userMenu {
       color: cadetblue;
       background: whitesmoke;
+    }
+    .main-detail {
+      width: 500;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      display: inline-flex;
+    }
+
+    .main-info {
+      float: right;
+      /* padding: 5px; */
+      width: 100%;
+      display: grid;
+    }
+    .main-title {
+      width: 100%;
+      background: #6dafb1;
+    }
+    .main-detail > img {
+      float: left;
+      padding: 2px;
+      border: 1px cadetblue solid;
+      border-top: none;
+    }
+    .main-info > p {
+      padding: 10px;
+      margin: 5px;
+    }
+    .main-info .submit {
+      float: right;
+      padding: 10px;
+      border: none;
+      background: cadetblue;
+      margin-right: 10px;
+      color: whitesmoke;
+      cursor: pointer;
     }
   </style>
   <body>
@@ -243,12 +289,54 @@
             <thead>
               <tr>
                 <th>Date</th>
-
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody id="serviceData"></tbody>
           </table>
+        </div>
+        <div class="container-two">
+          <div class="main-detail">
+            <img src="./back.jpg" alt="Norway" style="width: 25%" />
+            <div class="main-info">
+              <div class="main-title">
+                <h4
+                  style="color: whitesmoke; text-align: center; margin: 7px 0"
+                >
+                  Hardanger, Norway
+                </h4>
+              </div>
+
+              <p style="padding: 5px; color: cadetblue; font-size: 16px">
+                this is te description of the data description of the data
+                description of the data description of the data description of
+                the data
+              </p>
+              <p>
+                <span style="color: #407173">Assign Technician: </span
+                ><span style="margin-left: 7px; font-size: 15px"
+                  ><select
+                    style="
+                      padding: 7px;
+                      border: 0.5px cadetblue solid;
+                      color: #407173;
+                    "
+                    name="technician"
+                    id="technician"
+                  >
+                    <option>Sandeep - Software developer</option>
+                  </select></span
+                >
+              </p>
+              <p>
+                <button class="submit">SUBMIT</button>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
