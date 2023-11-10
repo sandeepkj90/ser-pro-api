@@ -38,5 +38,17 @@ const ServiceReqService = {
       // }
     });
   },
+  changeReqStatus: (payload) => {
+    console.log("data inside service", payload);
+    return new Promise(async (resolve, reject) => {
+      let data = await ServiceReqDAO.changeReqStatus(payload);
+      console.log("inside service approved", data);
+      resolve({
+        status: 200,
+        data: data,
+        message:"APPROVED"
+      });
+    });
+  },
 };
 module.exports = ServiceReqService;

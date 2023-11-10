@@ -1,15 +1,15 @@
-const express = require('express');
-const ServiceReqService = require('../service/service-req-service');
+const express = require("express");
+const ServiceReqService = require("../service/service-req-service");
 const route = express.Router();
-const CustomResponse = require('../utils/custom-response');
-const MiddlewareService = require('../utils/middleware');
+const CustomResponse = require("../utils/custom-response");
+const MiddlewareService = require("../utils/middleware");
 
-route.post('/create', MiddlewareService.authenticate, (req, res) => {
+route.post("/create", MiddlewareService.authenticate, (req, res) => {
   let payloadData = req.body;
   //let userData = req.user;
-  console.log('user Data', req.user);
-  payloadData['userId'] = req.user._id;
-  console.log('data inside controller', payloadData);
+  console.log("user Data", req.user);
+  payloadData["userId"] = req.user._id;
+  console.log("data inside controller", payloadData);
   ServiceReqService.create(payloadData)
     .then((result) => {
       res
@@ -42,13 +42,13 @@ route.post('/create', MiddlewareService.authenticate, (req, res) => {
 //     })
 // })
 
-route.get('/getListByUserId', MiddlewareService.authenticate, (req, res) => {
+route.get("/getListByUserId", MiddlewareService.authenticate, (req, res) => {
   // let payloadData = req.params;
   let userData = req.user;
-  console.log('data inside controller', userData);
+  console.log("data inside controller", userData);
   ServiceReqService.getListByUserId(userData)
     .then((result) => {
-      console.log('getting response from service ', result);
+      console.log("getting response from service ", result);
       res
         .status(result.status)
         .send(
@@ -68,10 +68,10 @@ route.get('/getListByUserId', MiddlewareService.authenticate, (req, res) => {
     });
 });
 
-route.delete('/deleteById/:id', MiddlewareService.authenticate, (req, res) => {
+route.delete("/deleteById/:id", MiddlewareService.authenticate, (req, res) => {
   let payloadData = req.params;
   let userData = req.user;
-  console.log('data inside controller', payloadData);
+  console.log("data inside controller", payloadData);
   ServiceReqService.deleteById(userData, payloadData)
     .then((result) => {
       res
@@ -104,5 +104,29 @@ route.delete('/deleteById/:id', MiddlewareService.authenticate, (req, res) => {
 //         res.status(error.status).send(CustomResponse.sendResponse(error.status,error.data, error.message));
 //     })
 // })
+route.patch("/changeReqStatus/:id", (req, res) => {
+  let payloadData = { ...req.params, ...req.body };
+  console.log("payloadData", payloadData);
+  ServiceReqService.changeReqStatus(payloadData)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 
 module.exports = route;
