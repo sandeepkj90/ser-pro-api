@@ -48,7 +48,17 @@ function changePage(pageName) {
           if (response.status == 200) {
             // if(response.data && response.data.items && response.data.items.length>0){
             // items = response.data;
+            let techOption = '';
+            let arr = [
+              { name: 'sandeep', skills: ['app developer', 'dancing'] },
+              { name: 'sree', skills: ['app designer', 'dancing'] },
+            ];
+            for (let i of arr) {
+              techOption += `<option>${i.name}-${i.skills.join(',')}</option>`;
+            }
+            $('#technicianList').append(techOption);
             let str = '';
+
             //   {
             //     "_id": "654de80e6ff9f63c2b1aefb0",
             //     "userId": "654c10834081654b04a3bdba",
@@ -76,15 +86,15 @@ function changePage(pageName) {
                             } alt='not found' width='50px' height='50px'/></td>
                             
                     <td>${it.status}</td>
-                    
+                    <td></td>
                             
                             
                         <td>${
                           it.status == 'PENDING'
-                            ? '<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick=""><i class="fa fa-check" aria-hidden="true"></i></span>'
+                            ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick="changeStatus(\'${it._id}\','PENDING')"><i class="fa fa-check-square-o" aria-hidden="true"></i> accept</span>`
                             : it.status == 'ACCEPTED'
-                            ? '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
-                            : '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>'
+                            ? `<span style="cursor:pointer;color:blue; font-size:16px;" onclick="changeStatus(\'${it._id}\','ACCEPTED')"><i class="fa fa-pencil-square-o" aria-hidden="true"> assign</i></span>`
+                            : `<span style="cursor:pointer;color:green; font-size:16px;" onclick="changeStatus(\'${it._id}\','ASSIGNED')"><i class="fa fa-thumbs-o-up"  aria-hidden="true"></i> closed</span>`
                         }</td></tr>`;
             }
 
@@ -162,65 +172,55 @@ function deleteEntry(data) {
     },
   });
 }
-function orderDetail(id) {
-  window.location.href = '/adminOrderDetail?input=' + id;
-}
+
 function changeStatus(id, status) {
-  let spanData = $('#' + id + 'changeText').text();
-  console.log('spandata--', spanData);
-  if (
-    spanData == 'WAITING CHEF ACTION' ||
-    spanData == 'CLOSED' ||
-    spanData == 'WAITING FOR BILL'
-  )
-    return;
-
-  let url = '';
+  console.log('chnage-', id, status);
+  let obj = {};
   if (status == 'PENDING') {
-    // $('#changeText').text('CONFIRMED')
-    url = '/orders/orderConfirmedByAdmin/' + id;
-  } else if (status == 'GET_BILL') {
-    url = '/orders/closeOrder/' + id;
+    obj['status'] = 'ACCEPTED';
   }
-  $.ajax({
-    method: 'PUT',
-    url: url,
-    contentType: 'application/json',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'PUT',
-      'Access-Control-Allow-Headers': 'application/json',
+  if (status != 'ACCEPTED') {
+    $.ajax({
+      method: 'PATCH',
+      url: `/serviceRequests/changeReqStatus/${id}`,
       contentType: 'application/json',
-      Authorization: localStorage.getItem('token'),
-    },
-    dataType: 'json',
-    success: function (response) {
-      //if request if made successfully then the response represent the data
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'PATCH',
+        'Access-Control-Allow-Headers': 'application/json',
+        contentType: 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+      data: JSON.stringify(obj),
+      dataType: 'json',
+      success: function (response) {
+        //if request if made successfully then the response represent the data
 
-      console.log('response', response);
-      if (response.status == 200) {
+        console.log('response', response);
+        if (response.status == 200) {
+          $('#showMessage').css('display', 'block');
+          $('#message').text(response.message);
+
+          // localStorage.setItem('token',response.token);
+          setTimeout(() => {
+            $('#showMessage').css('display', 'none');
+            $('#tableData').html('');
+            onLoad();
+            // window.location.href = '/home';
+          }, 2000);
+        }
+      },
+      error: function (error) {
+        console.log('error', error);
+        //let data = JSON.stringify(error.responseJSON.message.message));
         $('#showMessage').css('display', 'block');
-        $('#message').text(response.message);
-
-        // localStorage.setItem('token',response.token);
+        $('#message').text(error.responseJSON.message);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
-          $('#tableData').html('');
-          onLoad();
-          // window.location.href = '/home';
-        }, 2000);
-      }
-    },
-    error: function (error) {
-      console.log('error', error);
-      //let data = JSON.stringify(error.responseJSON.message.message));
-      $('#showMessage').css('display', 'block');
-      $('#message').text(error.responseJSON.message);
-      setTimeout(() => {
-        $('#showMessage').css('display', 'none');
-      }, 3000);
-    },
-  });
+        }, 3000);
+      },
+    });
+  }
 }
 
 function getStatus(status) {
