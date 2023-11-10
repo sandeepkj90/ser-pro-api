@@ -10,7 +10,7 @@ const ServiceReqSchema = new Schema({
   },
   title: {
     type: String,
-    default: '',
+    require: true,
   },
   //quantity:[{}]
   date: {
@@ -32,7 +32,7 @@ const ServiceReqSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['PENDING', 'INPROGRESS', 'CLOSED'],
+    enum: ['PENDING', 'ACCEPTED', 'ASSIGNED', 'CLOSED'],
     default: 'PENDING',
   },
 });

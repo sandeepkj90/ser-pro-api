@@ -159,6 +159,48 @@ function getItemName(items) {
   }
   return str;
 }
+function approveUser(id) {
+  $.ajax({
+    method: 'PATCH',
+    url: `/users/approve/${id}`,
+    contentType: 'application/json',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'PATCH',
+      'Access-Control-Allow-Headers': 'application/json',
+      contentType: 'application/json',
+      Authorization: localStorage.getItem('token'),
+    },
+    dataType: 'json',
+    success: function (response) {
+      //if request if made successfully then the response represent the data
+
+      console.log('response', response);
+      if (response.status == 200) {
+        $('#tableData').html('');
+        onLoad();
+        // if(response.data && response.data.items && response.data.items.length>0){
+        // items = response.data;
+
+        // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
+        // $('#tableData').append(str);
+
+        // $('#totalAmount').val(response.data.totalAmount)
+
+        // localStorage.setItem('token',response.token);
+      }
+    },
+    error: function (error) {
+      console.log('error', error);
+      //let data = JSON.stringify(error.responseJSON.message.message));
+      $('#showMessage').css('display', 'block');
+      $('#message').text(error.responseJSON.message);
+      setTimeout(() => {
+        $('#showMessage').css('display', 'none');
+      }, 3000);
+    },
+  });
+}
 function onLoad() {
   console.log('getname', localStorage.getItem('name'));
   document.getElementById('setName').innerText = `Hi ${localStorage.getItem(
@@ -204,8 +246,8 @@ function onLoad() {
                         
                     <td>${
                       it.status == 'INPROGRESS'
-                        ? '<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick=""><i class="fa fa-check" aria-hidden="true"></i></span>'
-                        : '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>'
+                        ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;" onclick="approveUser(\'${it._id}\')"><i class="fa fa-check" aria-hidden="true"></i></span>`
+                        : '<span style="cursor:pointer;color:green; font-size:16px;" ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>'
                     }</td></tr>`;
         }
         // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`

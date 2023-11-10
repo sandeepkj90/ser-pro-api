@@ -1,5 +1,5 @@
 (function () {
-  if (localStorage.getItem('token')) window.location.href = '/home';
+  if (localStorage.getItem('token')) window.location.href = '/admin';
 })();
 function login() {
   let obj = {
@@ -51,6 +51,7 @@ function login() {
         $('#message').text(response.message);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('name', response.data.firstName);
+        localStorage.setItem('userId', response.data._id);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
           if (response.data.role == 'CUSTOMER')

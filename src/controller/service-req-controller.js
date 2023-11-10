@@ -42,11 +42,11 @@ route.post('/create', MiddlewareService.authenticate, (req, res) => {
 //     })
 // })
 
-route.get('/getByUserId', MiddlewareService.authenticate, (req, res) => {
+route.get('/getListByUserId', MiddlewareService.authenticate, (req, res) => {
   // let payloadData = req.params;
   let userData = req.user;
   console.log('data inside controller', userData);
-  ServiceReqService.getByUserId(userData)
+  ServiceReqService.getListByUserId(userData)
     .then((result) => {
       console.log('getting response from service ', result);
       res

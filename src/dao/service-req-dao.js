@@ -6,11 +6,8 @@ const ServiceReqDAO = {
       ...payload,
     }).save();
   },
-  updateItems: (payload) => {
-    return ServiceReqModel.updateOne(
-      { userId: payload.userId },
-      { $addToSet: { items: payload.items } }
-    );
+  getListByUserId: (payload) => {
+    return ServiceReqModel.find({ userId: payload._id });
   },
 };
 module.exports = ServiceReqDAO;
