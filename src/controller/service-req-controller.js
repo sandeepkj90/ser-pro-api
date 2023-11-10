@@ -128,5 +128,29 @@ route.patch("/changeReqStatus/:id", (req, res) => {
         );
     });
 });
+route.put("/update/:id", (req, res) => {
+  let payloadData = { ...req.params, ...req.body };
+  console.log("payloadData", payloadData);
+  ServiceReqService.update(payloadData)
+    .then((result) => {
+      console.log("result=============", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 
 module.exports = route;

@@ -38,15 +38,15 @@ const ServiceReqService = {
       // }
     });
   },
-  changeReqStatus: (payload) => {
+  update: (payload) => {
     console.log("data inside service", payload);
     return new Promise(async (resolve, reject) => {
-      let data = await ServiceReqDAO.changeReqStatus(payload);
+      let data = await ServiceReqDAO.update(payload);
       console.log("inside service approved", data);
       resolve({
         status: 200,
         data: data,
-        message:"APPROVED"
+        message:"updated successfully"
       });
     });
   },

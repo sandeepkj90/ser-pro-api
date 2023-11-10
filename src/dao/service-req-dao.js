@@ -11,11 +11,8 @@ const ServiceReqDAO = {
     if (payload.role != "ADMIN") query["userId"] = payload._id;
     return ServiceReqModel.find(query);
   },
-  changeReqStatus: (payload) => {
-    return ServiceReqModel.updateOne(
-      { _id: payload.id },
-      { $set: { status: payload.status } }
-    );
+  update: (payload) => {
+    return ServiceReqModel.updateOne({ _id: payload.id }, { $set: payload });
   },
 };
 module.exports = ServiceReqDAO;
