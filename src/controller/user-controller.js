@@ -154,4 +154,26 @@ route.patch("/approve/:id", (req, res) => {
     });
 });
 
+route.get("/getTechnician", (req, res) => {
+  UserService.getTechnician()
+    .then((result) => {
+      res
+        .status(200)
+        .send(
+          CustomResponse.sendResponse(
+            200,
+            result.data,
+            "Successfully fetched Technician"
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
+
 module.exports = route;
