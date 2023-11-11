@@ -152,5 +152,29 @@ route.put("/update/:id", (req, res) => {
         );
     });
 });
+route.get("/getTechnician/:id", (req, res) => {
+  let payloadData = req.params;
+  console.log("data inside controller", payloadData);
+  ServiceReqService.getTechnician(payloadData)
+    .then((result) => {
+      console.log("getting response from service ", result);
+      res
+        .status(result.status)
+        .send(
+          CustomResponse.sendResponse(
+            result.status,
+            result.data,
+            result.message
+          )
+        );
+    })
+    .catch((error) => {
+      res
+        .status(error.status)
+        .send(
+          CustomResponse.sendResponse(error.status, error.data, error.message)
+        );
+    });
+});
 
 module.exports = route;

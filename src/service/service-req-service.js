@@ -50,5 +50,23 @@ const ServiceReqService = {
       });
     });
   },
+  getTechnician: (payload) => {
+    console.log('data inside service', payload);
+    return new Promise(async (resolve, reject) => {
+      ServiceReqDAO.getTechnician(payload)
+        .then((result) => {
+          resolve({
+            status: 200,
+            data: result,
+            message: Constant.MESSAGE.CART.CREATED,
+          });
+        })
+        .catch((error) => {
+          reject({ status: 500, message: error });
+        });
+
+      // }
+    });
+  },
 };
 module.exports = ServiceReqService;
