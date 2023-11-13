@@ -35,8 +35,8 @@ app.use('/customerHome', (req, res) => {
 app.use('/home', (req, res) => {
   res.sendFile(__dirname + '/public/home.html');
 });
-app.use('/chefHome', (req, res) => {
-  res.sendFile(__dirname + '/public/chefHome.html');
+app.use('/technicianHome', (req, res) => {
+  res.sendFile(__dirname + '/public/techHome.html');
 });
 app.use('/admin', (req, res) => {
   res.sendFile(__dirname + '/public/admin.html');

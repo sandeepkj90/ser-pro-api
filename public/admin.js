@@ -8,6 +8,54 @@ function logout() {
   localStorage.removeItem('token');
   window.location.href = '/login';
 }
+function assignTechy() {
+  let obj = {
+    assignedTo: $('#technicianList option:selected').val(),
+    status: 'ASSIGNED',
+  };
+  $.ajax({
+    method: 'PUT',
+    url: `/serviceRequests/update/${
+      document.getElementById('hidden-id').innerHTML
+    }`,
+    contentType: 'application/json',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'PATCH',
+      'Access-Control-Allow-Headers': 'application/json',
+      contentType: 'application/json',
+      Authorization: localStorage.getItem('token'),
+    },
+    data: JSON.stringify(obj),
+    dataType: 'json',
+    success: function (response) {
+      //if request if made successfully then the response represent the data
+      changePage('SERVICE');
+      console.log('response', response);
+      if (response.status == 200) {
+        $('#showMessage').css('display', 'block');
+        $('#message').text(response.message);
+
+        // localStorage.setItem('token',response.token);
+        setTimeout(() => {
+          $('#showMessage').css('display', 'none');
+          $('#tableData').html('');
+          // onLoad();
+          // window.location.href = '/home';
+        }, 2000);
+      }
+    },
+    error: function (error) {
+      console.log('error', error);
+      //let data = JSON.stringify(error.responseJSON.message.message));
+      $('#showMessage').css('display', 'block');
+      $('#message').text(error.responseJSON.message);
+      setTimeout(() => {
+        $('#showMessage').css('display', 'none');
+      }, 3000);
+    },
+  });
+}
 function changePage(pageName) {
   switch (pageName) {
     case 'USER': {
@@ -23,6 +71,7 @@ function changePage(pageName) {
     }
     case 'SERVICE': {
       $('#serviceData').html('');
+      $('#detail-view').css('display', 'none');
       $('#right-side').css('display', 'none');
       $('#service-side').css('display', 'block');
       $('.serviceMenu').css('color', 'cadetblue');
@@ -48,15 +97,7 @@ function changePage(pageName) {
           if (response.status == 200) {
             // if(response.data && response.data.items && response.data.items.length>0){
             // items = response.data;
-            let techOption = '';
-            let arr = [
-              { name: 'sandeep', skills: ['app developer', 'dancing'] },
-              { name: 'sree', skills: ['app designer', 'dancing'] },
-            ];
-            for (let i of arr) {
-              techOption += `<option>${i.name}-${i.skills.join(',')}</option>`;
-            }
-            $('#technicianList').append(techOption);
+
             let str = '';
 
             //   {
@@ -86,15 +127,17 @@ function changePage(pageName) {
                             } alt='not found' width='50px' height='50px'/></td>
                             
                     <td>${it.status}</td>
-                    <td></td>
+                    <td>${it.assignedTo?.firstName || ''} ${
+                it.assignedTo?.lastName || ''
+              }</td>
                             
                             
                         <td>${
                           it.status == 'PENDING'
                             ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick="changeStatus(\'${it._id}\','PENDING')"><i class="fa fa-check-square-o" aria-hidden="true"></i> accept</span>`
                             : it.status == 'ACCEPTED'
-                            ? `<span style="cursor:pointer;color:blue; font-size:16px;" onclick="changeStatus(\'${it._id}\','ACCEPTED')"><i class="fa fa-pencil-square-o" aria-hidden="true"> assign</i></span>`
-                            : `<span style="cursor:pointer;color:green; font-size:16px;" onclick="changeStatus(\'${it._id}\','ASSIGNED')"><i class="fa fa-thumbs-o-up"  aria-hidden="true"></i> closed</span>`
+                            ? `<span style="cursor:pointer;color:blue; font-size:16px;" onclick="changeStatus(\'${it._id}\','ACCEPTED',\'${it.title}\',\'${it.description}\',\'${it.pics}\')"><i class="fa fa-pencil-square-o" aria-hidden="true"> assign</i></span>`
+                            : `<span style="cursor:pointer;color:green; font-size:16px;" ><i class="fa fa-thumbs-o-up"  aria-hidden="true"></i> closed</span>`
                         }</td></tr>`;
             }
 
@@ -173,8 +216,8 @@ function deleteEntry(data) {
   });
 }
 
-function changeStatus(id, status) {
-  console.log('chnage-', id, status);
+function changeStatus(id, status, title, description, pics) {
+  console.log('chnage-', id, status, title, description, pics);
   let obj = {};
   if (status == 'PENDING') {
     obj['status'] = 'ACCEPTED';
@@ -195,7 +238,7 @@ function changeStatus(id, status) {
       dataType: 'json',
       success: function (response) {
         //if request if made successfully then the response represent the data
-
+        changePage('SERVICE');
         console.log('response', response);
         if (response.status == 200) {
           $('#showMessage').css('display', 'block');
@@ -205,9 +248,63 @@ function changeStatus(id, status) {
           setTimeout(() => {
             $('#showMessage').css('display', 'none');
             $('#tableData').html('');
-            onLoad();
+            // onLoad();
             // window.location.href = '/home';
           }, 2000);
+        }
+      },
+      error: function (error) {
+        console.log('error', error);
+        //let data = JSON.stringify(error.responseJSON.message.message));
+        $('#showMessage').css('display', 'block');
+        $('#message').text(error.responseJSON.message);
+        setTimeout(() => {
+          $('#showMessage').css('display', 'none');
+        }, 3000);
+      },
+    });
+  } else if (status == 'ACCEPTED') {
+    $.ajax({
+      method: 'GET',
+      url: '/users/getUserList?role=' + localStorage.getItem('role'),
+      contentType: 'application/json',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'application/json',
+        contentType: 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+      dataType: 'json',
+      success: function (response) {
+        //if request if made successfully then the response represent the data
+
+        console.log('response', response);
+        if (response.status == 200) {
+          $('#detail-view').css('display', 'block');
+          $('#title').html(title);
+          $('#hidden-id').html(id);
+          $('#description').html(description);
+          $('#screenshot').attr('src', `uploads/${pics}`);
+          $('#technicianList').html('');
+          let techOption = '';
+          for (let i of response.data) {
+            techOption += `<option value="${i._id}">${
+              i.firstName
+            }-${i.skills.join(',')}</option>`;
+          }
+          $('#technicianList').append(techOption);
+          // $('#screenshot').html(title);
+
+          // $('#showMessage').css('display', 'block');
+          // $('#message').text(response.message);
+          // // localStorage.setItem('token',response.token);
+          // setTimeout(() => {
+          //   $('#showMessage').css('display', 'none');
+          //   $('#tableData').html('');
+          //   onLoad();
+          //   // window.location.href = '/home';
+          // }, 2000);
         }
       },
       error: function (error) {

@@ -52,12 +52,13 @@ function login() {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('name', response.data.firstName);
         localStorage.setItem('userId', response.data._id);
+        localStorage.setItem('role', response.data.role);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
           if (response.data.role == 'CUSTOMER')
             window.location.href = '/customerHome';
-          else if (response.data.role == 'CHEF')
-            window.location.href = '/chefHome';
+          else if (response.data.role == 'TECHNICIAN')
+            window.location.href = '/technicianHome';
           else window.location.href = '/admin';
         }, 1000);
       }

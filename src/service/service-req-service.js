@@ -38,15 +38,28 @@ const ServiceReqService = {
       // }
     });
   },
-  update: (payload) => {
-    console.log("data inside service", payload);
+  changeReqStatus: (payload) => {
+    console.log('data inside service', payload);
     return new Promise(async (resolve, reject) => {
-      let data = await ServiceReqDAO.update(payload);
-      console.log("inside service approved", data);
+      let data = await ServiceReqDAO.changeReqStatus(payload);
+      console.log('inside service approved', data);
       resolve({
         status: 200,
         data: data,
-        message:"updated successfully"
+        message: 'updated successfully',
+      });
+    });
+  },
+
+  update: (payload) => {
+    console.log('data inside service', payload);
+    return new Promise(async (resolve, reject) => {
+      let data = await ServiceReqDAO.update(payload);
+      console.log('inside service approved', data);
+      resolve({
+        status: 200,
+        data: data,
+        message: 'updated successfully',
       });
     });
   },
