@@ -34,6 +34,11 @@ const UserService = {
       } else {
         if (responseData.password == payload.password) {
           //   delete responseData.password;
+          if (responseData.status == 'INPROGRESS')
+            return reject({
+              status: 406,
+              message: Constant.MESSAGE.USER.APPROVAL,
+            });
           resolve({
             status: 200,
             message: Constant.MESSAGE.USER.LOGIN,

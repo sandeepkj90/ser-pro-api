@@ -64,20 +64,21 @@ app.use('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-UserDAO.isUserExist({ email: 'sandy@gmail.com', password: 'asdf1234' }).then(
+UserDAO.isUserExist({ email: 'admin@gmail.com', password: 'admin@123' }).then(
   (result) => {
     if (result) console.log('Admin already registered');
     else {
       UserDAO.register({
-        firstName: 'Sandeep',
-        lastName: 'Jaiswal',
-        email: 'sandy@gmail.com',
-        password: 'asdf1234',
+        firstName: 'Admin',
+        lastName: 'Gentle',
+        email: 'admin@gmail.com',
+        password: 'admin@123',
         role: 'ADMIN',
-        address: 'NEPAL',
-        phone: 76768686878,
+        address: 'INDIA',
+        phone: 7878767678,
         status: 'APPROVED',
         pincode: '560035',
+        profilePic: 'profile_icon.jpeg',
       }).then((response) => {
         console.log('Admin Registered successfully');
       });

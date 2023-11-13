@@ -9,6 +9,10 @@ const ServiceReqDAO = {
   getListByUserId: (payload) => {
     let query = {};
     if (payload.role != 'ADMIN') query['userId'] = payload._id;
+    // if (payload.role == 'ADMIN') {
+    //   query['role'] = 'TECHNICIAN';
+    //   query['status'] = 'APPROVED';
+    // }
     return ServiceReqModel.find(query).populate('assignedTo');
   },
   changeReqStatus: (payload) => {

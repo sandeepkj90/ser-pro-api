@@ -17,6 +17,7 @@ const Constant = {
       INVALID_OTP: 'Invalid OTP',
       INVALID_CREDENTIALS: 'Password is wrong.',
       UNAUTHORIZED: 'You are not authorized to use this service.',
+      APPROVAL: 'You profile is under process. Please contact Admin..',
     },
     COMMON: {
       FAILED: 'Query Failed',

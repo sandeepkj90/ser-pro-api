@@ -5,6 +5,7 @@ let skillList = [];
 })();
 let profilepic = '';
 function previewImage() {
+  $('#loading').css('display', 'block');
   var oFReader = new FileReader();
   oFReader.readAsDataURL(document.getElementById('uploadImage').files[0]);
 
@@ -36,6 +37,9 @@ function previewImage() {
     success: function (response) {
       console.log(response.data.path);
       profilepic = response.data.filename;
+      setTimeout(() => {
+        $('#loading').css('display', 'none');
+      }, 1000);
     },
   });
 }
@@ -118,6 +122,7 @@ function register() {
     }
   }
   console.log('hello ', obj);
+  $('#loading').css('display', 'block');
 
   $.ajax({
     method: 'POST',
@@ -139,6 +144,8 @@ function register() {
         $('#showMessage').css('display', 'block');
         $('#message').text('User Registered Successfully.');
         setTimeout(() => {
+          $('#loading').css('display', 'none');
+
           window.location.href = '/';
         }, 3000);
       }
@@ -149,6 +156,8 @@ function register() {
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
+        $('#loading').css('display', 'none');
+
         $('#showMessage').css('display', 'none');
       }, 3000);
     },

@@ -61,6 +61,8 @@ function previewImage() {
   console.log('formData--', formData);
   // You can also append additional data to the FormData if needed
   // formData.append('key', 'value');
+  $('#loading').css('display', 'block');
+
   $.ajax({
     url: '/upload',
     type: 'POST',
@@ -73,6 +75,9 @@ function previewImage() {
     success: function (response) {
       console.log(response.data.path);
       filePath = response.data.filename;
+      setTimeout(() => {
+        $('#loading').css('display', 'none');
+      }, 2000);
     },
   });
 }
@@ -82,6 +87,8 @@ function onLoad() {
   document.getElementById('setName').innerText = `Hi ${localStorage.getItem(
     'name'
   )}`;
+  $('#loading').css('display', 'block');
+
   $.ajax({
     method: 'GET',
     url: '/serviceRequests/getListByUserId',
@@ -99,6 +106,8 @@ function onLoad() {
 
       console.log('response', response);
       if (response.status == 200) {
+        $('#loading').css('display', 'none');
+        $('#tableData').html('');
         // if(response.data && response.data.items && response.data.items.length>0){
         // items = response.data;
         if (localStorage.getItem('profilePic')) {
@@ -156,6 +165,8 @@ function onLoad() {
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
+        $('#loading').css('display', 'none');
+
         $('#showMessage').css('display', 'none');
       }, 3000);
     },
@@ -195,6 +206,7 @@ function raiseRequest() {
     }
   }
   console.log('hello ', obj);
+  $('#loading').css('display', 'block');
 
   $.ajax({
     method: 'POST',
@@ -217,6 +229,8 @@ function raiseRequest() {
         $('#showMessage').css('display', 'block');
         $('#message').text('Service Request raised Successfully.');
         setTimeout(() => {
+          $('#loading').css('display', 'none');
+          // onLoad();
           window.location.href = '/customerHome';
         }, 3000);
       }
@@ -227,6 +241,8 @@ function raiseRequest() {
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
+        $('#loading').css('display', 'none');
+
         $('#showMessage').css('display', 'none');
       }, 3000);
     },

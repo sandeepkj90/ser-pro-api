@@ -32,15 +32,6 @@ function changePage(pageName) {
     }
   }
 }
-function goToDish() {
-  window.location.href = '/home';
-}
-function updateDish(name, price, dishType, image, _id) {
-  let data = { name, price, dishType, image, _id };
-  console.log('data fro update', data);
-  window.location.href =
-    '/dishDetail?input=' + window.btoa(JSON.stringify(data));
-}
 function previewImage() {
   var oFReader = new FileReader();
   oFReader.readAsDataURL(document.getElementById('uploadImage').files[0]);
@@ -61,6 +52,8 @@ function previewImage() {
   console.log('formData--', formData);
   // You can also append additional data to the FormData if needed
   // formData.append('key', 'value');
+  $('#loading').css('display', 'block');
+
   $.ajax({
     url: '/upload',
     type: 'POST',
@@ -73,6 +66,7 @@ function previewImage() {
     success: function (response) {
       console.log(response.data.path);
       filePath = response.data.filename;
+      $('#loading').css('display', 'none');
     },
   });
 }
@@ -82,6 +76,8 @@ function onLoad() {
   document.getElementById('setName').innerText = `Hi ${localStorage.getItem(
     'name'
   )}`;
+  $('#loading').css('display', 'block');
+
   $.ajax({
     method: 'GET',
     url: `/serviceRequests/getTechnician/${localStorage.getItem('userId')}`,
@@ -99,6 +95,8 @@ function onLoad() {
 
       console.log('response', response);
       if (response.status == 200) {
+        $('#loading').css('display', 'none');
+
         if (localStorage.getItem('profilePic')) {
           // $('#profileImage').src('')
           $('#profileImage').attr(
@@ -157,6 +155,8 @@ function onLoad() {
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
+        $('#loading').css('display', 'none');
+
         $('#showMessage').css('display', 'none');
       }, 3000);
     },
@@ -164,82 +164,14 @@ function onLoad() {
 }
 // function registerRequest() {}
 
-function raiseRequest() {
-  let obj = {
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    pics: filePath,
-    userId: localStorage.getItem('userId'),
-  };
-  console.log('objet reqeust', obj);
-  for (let i in obj) {
-    if ((i != 'pics' && obj[i] == '') || obj[i] == []) {
-      $(`#${i}`).css('border', '1px red solid');
-      $('#message').css('color', 'red');
-
-      $('#showMessage').css('display', 'block');
-      $('#showMessage').css('background', '#f2dede');
-
-      let key = i[0].toUpperCase() + i.slice(1);
-      $('#message').text(`${key} is Required.`);
-
-      setTimeout(() => {
-        $('#showMessage').css('display', 'none');
-        $(`#${i}`).css('border', 'none');
-        $('#message').css('color', '#1e81b0');
-
-        // window.location.href = '/register';
-      }, 3000);
-      return;
-    } else {
-      $(`#${i}`).css('border', 'none');
-    }
-  }
-  console.log('hello ', obj);
-
-  $.ajax({
-    method: 'POST',
-    url: '/serviceRequests/create',
-    contentType: 'application/json',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST',
-      'Access-Control-Allow-Headers': 'application/json',
-      contentType: 'application/json',
-      Authorization: localStorage.getItem('token'),
-    },
-    data: JSON.stringify(obj),
-    dataType: 'json',
-    success: function (response) {
-      //if request if made successfully then the response represent the data
-
-      console.log('response', response);
-      if (response.status == 201) {
-        $('#showMessage').css('display', 'block');
-        $('#message').text('Service Request raised Successfully.');
-        setTimeout(() => {
-          window.location.href = '/customerHome';
-        }, 3000);
-      }
-    },
-    error: function (error) {
-      console.log('error', error);
-      //let data = JSON.stringify(error.responseJSON.message.message));
-      $('#showMessage').css('display', 'block');
-      $('#message').text(error.responseJSON.message);
-      setTimeout(() => {
-        $('#showMessage').css('display', 'none');
-      }, 3000);
-    },
-  });
-  console.log('hello');
-}
 function changeStatus(id, status) {
   // console.log('chnage-', id, status, title, description, pics);
   let obj = { status: 'CLOSED' };
   // if (status == 'ASSIGNED') {
   // obj['status'] = 'CLOSED';
   // }
+  $('#loading').css('display', 'block');
+
   $.ajax({
     method: 'PATCH',
     url: `/serviceRequests/changeReqStatus/${id}`,
@@ -265,6 +197,8 @@ function changeStatus(id, status) {
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
           $('#tableData').html('');
+          $('#loading').css('display', 'none');
+
           onLoad();
           // window.location.href = '/home';
         }, 2000);
@@ -276,6 +210,8 @@ function changeStatus(id, status) {
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
+        $('#loading').css('display', 'none');
+
         $('#showMessage').css('display', 'none');
       }, 3000);
     },

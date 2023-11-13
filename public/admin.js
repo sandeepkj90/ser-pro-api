@@ -13,6 +13,7 @@ function assignTechy() {
     assignedTo: $('#technicianList option:selected').val(),
     status: 'ASSIGNED',
   };
+  $('#loading').css('display', 'block');
   $.ajax({
     method: 'PUT',
     url: `/serviceRequests/update/${
@@ -29,6 +30,7 @@ function assignTechy() {
     data: JSON.stringify(obj),
     dataType: 'json',
     success: function (response) {
+      $('#loading').css('display', 'none');
       //if request if made successfully then the response represent the data
       changePage('SERVICE');
       console.log('response', response);
@@ -47,6 +49,8 @@ function assignTechy() {
     },
     error: function (error) {
       console.log('error', error);
+      $('#loading').css('display', 'none');
+
       //let data = JSON.stringify(error.responseJSON.message.message));
       $('#showMessage').css('display', 'block');
       $('#message').text(error.responseJSON.message);
@@ -78,6 +82,8 @@ function changePage(pageName) {
       $('.serviceMenu').css('background', 'whitesmoke');
       $('.userMenu').css('color', 'whitesmoke');
       $('.userMenu').css('background', 'cadetblue');
+      $('#loading').css('display', 'block');
+
       $.ajax({
         method: 'GET',
         url: '/serviceRequests/getListByUserId',
@@ -95,6 +101,8 @@ function changePage(pageName) {
 
           console.log('response', response);
           if (response.status == 200) {
+            $('#loading').css('display', 'none');
+
             // if(response.data && response.data.items && response.data.items.length>0){
             // items = response.data;
 
@@ -159,69 +167,19 @@ function changePage(pageName) {
         },
         error: function (error) {
           console.log('error', error);
+
           //let data = JSON.stringify(error.responseJSON.message.message));
           $('#showMessage').css('display', 'block');
           $('#message').text(error.responseJSON.message);
           setTimeout(() => {
+            $('#loading').css('display', 'none');
+
             $('#showMessage').css('display', 'none');
           }, 3000);
         },
       });
     }
   }
-}
-
-function goToDish() {
-  window.location.href = '/home';
-}
-function updateDish(name, price, dishType, image, _id) {
-  let data = { name, price, dishType, image, _id };
-  console.log('data fro update', data);
-  window.location.href =
-    '/dishDetail?input=' + window.btoa(JSON.stringify(data));
-}
-function deleteEntry(data) {
-  console.log('button clicked delete');
-  console.log('delete data', data);
-  $.ajax({
-    method: 'DELETE',
-    url: '/dishes/deleteById/' + data,
-    contentType: 'application/json',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'DELETE',
-      'Access-Control-Allow-Headers': 'application/json',
-      contentType: 'application/json',
-      Authorization: localStorage.getItem('token'),
-    },
-    dataType: 'json',
-    success: function (response) {
-      //if request if made successfully then the response represent the data
-
-      console.log('response', response);
-      if (response.status == 200) {
-        $('#showMessage').css('display', 'block');
-        $('#message').text(response.message);
-
-        // localStorage.setItem('token',response.token);
-        setTimeout(() => {
-          $('#showMessage').css('display', 'none');
-          $('#tableData').html('');
-          onLoad();
-          // window.location.href = '/home';
-        }, 2000);
-      }
-    },
-    error: function (error) {
-      console.log('error', error);
-      //let data = JSON.stringify(error.responseJSON.message.message));
-      $('#showMessage').css('display', 'block');
-      $('#message').text(error.responseJSON.message);
-      setTimeout(() => {
-        $('#showMessage').css('display', 'none');
-      }, 3000);
-    },
-  });
 }
 
 function changeStatus(id, status, title, description, pics) {
@@ -231,6 +189,8 @@ function changeStatus(id, status, title, description, pics) {
     obj['status'] = 'ACCEPTED';
   }
   if (status != 'ACCEPTED') {
+    $('#loading').css('display', 'block');
+
     $.ajax({
       method: 'PATCH',
       url: `/serviceRequests/changeReqStatus/${id}`,
@@ -256,6 +216,8 @@ function changeStatus(id, status, title, description, pics) {
           setTimeout(() => {
             $('#showMessage').css('display', 'none');
             $('#tableData').html('');
+            $('#loading').css('display', 'none');
+
             // onLoad();
             // window.location.href = '/home';
           }, 2000);
@@ -268,13 +230,16 @@ function changeStatus(id, status, title, description, pics) {
         $('#message').text(error.responseJSON.message);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
+          $('#loading').css('display', 'none');
         }, 3000);
       },
     });
   } else if (status == 'ACCEPTED') {
+    $('#loading').css('display', 'block');
+
     $.ajax({
       method: 'GET',
-      url: '/users/getUserList?role=' + localStorage.getItem('role'),
+      url: '/users/getUserList',
       contentType: 'application/json',
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -290,6 +255,8 @@ function changeStatus(id, status, title, description, pics) {
         console.log('response', response);
         if (response.status == 200) {
           $('#detail-view').css('display', 'block');
+          $('#loading').css('display', 'none');
+
           $('#title').html(title);
           $('#hidden-id').html(id);
           $('#description').html(description);
@@ -322,6 +289,7 @@ function changeStatus(id, status, title, description, pics) {
         $('#message').text(error.responseJSON.message);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
+          $('#loading').css('display', 'none');
         }, 3000);
       },
     });
@@ -344,6 +312,8 @@ function getItemName(items) {
   return str;
 }
 function approveUser(id) {
+  $('#loading').css('display', 'block');
+
   $.ajax({
     method: 'PATCH',
     url: `/users/approve/${id}`,
@@ -381,11 +351,14 @@ function approveUser(id) {
       $('#message').text(error.responseJSON.message);
       setTimeout(() => {
         $('#showMessage').css('display', 'none');
+        $('#loading').css('display', 'none');
       }, 3000);
     },
   });
 }
 function onLoad() {
+  $('#loading').css('display', 'block');
+
   console.log('getname', localStorage.getItem('name'));
   document.getElementById('setName').innerText = `Hi ${localStorage.getItem(
     'name'
@@ -407,6 +380,8 @@ function onLoad() {
 
       console.log('response', response);
       if (response.status == 200) {
+        $('#loading').css('display', 'none');
+
         // if(response.data && response.data.items && response.data.items.length>0){
         // items = response.data;
         if (localStorage.getItem('profilePic')) {
