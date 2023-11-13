@@ -409,6 +409,13 @@ function onLoad() {
       if (response.status == 200) {
         // if(response.data && response.data.items && response.data.items.length>0){
         // items = response.data;
+        if (localStorage.getItem('profilePic')) {
+          // $('#profileImage').src('')
+          $('#profileImage').attr(
+            'src',
+            `uploads/${localStorage.getItem('profilePic')}`
+          );
+        }
         let str = '';
         for (let it of response.data) {
           str += `<tr>

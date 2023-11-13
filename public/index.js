@@ -1,6 +1,7 @@
 (function () {
   if (localStorage.getItem('token')) window.location.href = '/admin';
 })();
+
 function login() {
   let obj = {
     email: document.getElementById('email').value,
@@ -53,6 +54,7 @@ function login() {
         localStorage.setItem('name', response.data.firstName);
         localStorage.setItem('userId', response.data._id);
         localStorage.setItem('role', response.data.role);
+        localStorage.setItem('profilePic', response.data.profilePic);
         setTimeout(() => {
           $('#showMessage').css('display', 'none');
           if (response.data.role == 'CUSTOMER')

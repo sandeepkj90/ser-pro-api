@@ -99,6 +99,13 @@ function onLoad() {
 
       console.log('response', response);
       if (response.status == 200) {
+        if (localStorage.getItem('profilePic')) {
+          // $('#profileImage').src('')
+          $('#profileImage').attr(
+            'src',
+            `uploads/${localStorage.getItem('profilePic')}`
+          );
+        }
         // if(response.data && response.data.items && response.data.items.length>0){
         // items = response.data;
         let str = '';

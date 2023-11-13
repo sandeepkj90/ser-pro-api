@@ -3,13 +3,41 @@ let skillList = [];
 (function () {
   if (localStorage.getItem('token')) window.location.href = '/home';
 })();
-function PreviewImage() {
+let profilepic = '';
+function previewImage() {
   var oFReader = new FileReader();
   oFReader.readAsDataURL(document.getElementById('uploadImage').files[0]);
 
   oFReader.onload = function (oFREvent) {
     document.getElementById('uploadPreview').src = oFREvent.target.result;
   };
+  // const fileInput = document.getElementById('uploadImage');
+  const file = document.getElementById('uploadImage').files[0];
+  console.log('files', file);
+  if (!file) {
+    alert('Please select a file.');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('file', file);
+  console.log('formData--', formData);
+  // You can also append additional data to the FormData if needed
+  // formData.append('key', 'value');
+  $.ajax({
+    url: '/upload',
+    type: 'POST',
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    enctype: 'multipart/form-data',
+    processData: false,
+    success: function (response) {
+      console.log(response.data.path);
+      profilepic = response.data.filename;
+    },
+  });
 }
 function clearData() {
   document.getElementById('skillList').innerHTML = '';
@@ -60,6 +88,7 @@ function register() {
     phone: document.getElementById('phone').value,
     pincode: document.getElementById('pincode').value,
     address: document.getElementById('address').value,
+    profilePic: profilepic,
     // skills: skillList,
     ...(document.getElementById('role').value == 'TECHNICIAN' && {
       skills: skillList,
