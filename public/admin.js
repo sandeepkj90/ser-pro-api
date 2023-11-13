@@ -137,7 +137,15 @@ function changePage(pageName) {
                             ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick="changeStatus(\'${it._id}\','PENDING')"><i class="fa fa-check-square-o" aria-hidden="true"></i> accept</span>`
                             : it.status == 'ACCEPTED'
                             ? `<span style="cursor:pointer;color:blue; font-size:16px;" onclick="changeStatus(\'${it._id}\','ACCEPTED',\'${it.title}\',\'${it.description}\',\'${it.pics}\')"><i class="fa fa-pencil-square-o" aria-hidden="true"> assign</i></span>`
-                            : `<span style="cursor:pointer;color:green; font-size:16px;" ><i class="fa fa-thumbs-o-up"  aria-hidden="true"></i> closed</span>`
+                            : `<span style="cursor:pointer;color:green; font-size:16px;" >${
+                                it.status == 'ASSIGNED'
+                                  ? '<i class="fa fa-male" aria-hidden="true"></i>'
+                                  : ''
+                              }${
+                                it.status == 'ASSIGNED'
+                                  ? ' assigned'
+                                  : ' closed'
+                              }</span>`
                         }</td></tr>`;
             }
 

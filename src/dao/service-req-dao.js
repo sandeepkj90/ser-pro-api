@@ -21,7 +21,7 @@ const ServiceReqDAO = {
     return ServiceReqModel.updateOne({ _id: payload.id }, { $set: payload });
   },
   getTechnician: (payload) => {
-    return ServiceReqModel.find({ assignedTo: payload.id });
+    return ServiceReqModel.find({ assignedTo: payload.id }).populate('userId');
   },
 };
 module.exports = ServiceReqDAO;

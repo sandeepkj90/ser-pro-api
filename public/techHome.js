@@ -84,7 +84,7 @@ function onLoad() {
   )}`;
   $.ajax({
     method: 'GET',
-    url: '/serviceRequests/getListByUserId',
+    url: `/serviceRequests/getTechnician/${localStorage.getItem('userId')}`,
     contentType: 'application/json',
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -124,15 +124,16 @@ function onLoad() {
                         <td><img src=uploads/${
                           it.pics
                         } alt='not found' width='50px' height='50px'/></td>
-                        
-                <td>${it.status}</td>
-                
-                        
-                        
+                        <td>${it.userId.firstName}</td>
+                        <td>${it.userId.phone}</td>
+                        <td>${it.userId.address}</td>
+                        <td>${
+                          it.status
+                        }</td>                                           
                     <td>${
-                      it.status == 'INPROGRESS'
-                        ? '<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick=""><i class="fa fa-check" aria-hidden="true"></i></span>'
-                        : '<span style="cursor:pointer;color:green; font-size:16px;" onclick=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></span>'
+                      it.status == 'ASSIGNED'
+                        ? `<span style="cursor:pointer;color:#2a59a2; font-size:16px;"onclick="changeStatus(\'${it._id}\','ASSIGNED')"><i class="fa fa-window-close" aria-hidden="true"></i> close</span>`
+                        : '<span style="cursor:pointer;color:green; font-size:16px;"><i class="fa fa-thumbs-o-up" aria-hidden="true"> closed</i></span>'
                     }</td></tr>`;
         }
         // str +=`<tr><td>Total Amount</td><td>${response.data.totalAmount}</tr>`
@@ -225,4 +226,51 @@ function raiseRequest() {
     },
   });
   console.log('hello');
+}
+function changeStatus(id, status) {
+  // console.log('chnage-', id, status, title, description, pics);
+  let obj = { status: 'CLOSED' };
+  // if (status == 'ASSIGNED') {
+  // obj['status'] = 'CLOSED';
+  // }
+  $.ajax({
+    method: 'PATCH',
+    url: `/serviceRequests/changeReqStatus/${id}`,
+    contentType: 'application/json',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'PATCH',
+      'Access-Control-Allow-Headers': 'application/json',
+      contentType: 'application/json',
+      Authorization: localStorage.getItem('token'),
+    },
+    data: JSON.stringify(obj),
+    dataType: 'json',
+    success: function (response) {
+      //if request if made successfully then the response represent the data
+      // changePage('SERVICE');
+      console.log('response', response);
+      if (response.status == 200) {
+        $('#showMessage').css('display', 'block');
+        $('#message').text(response.message);
+
+        // localStorage.setItem('token',response.token);
+        setTimeout(() => {
+          $('#showMessage').css('display', 'none');
+          $('#tableData').html('');
+          onLoad();
+          // window.location.href = '/home';
+        }, 2000);
+      }
+    },
+    error: function (error) {
+      console.log('error', error);
+      //let data = JSON.stringify(error.responseJSON.message.message));
+      $('#showMessage').css('display', 'block');
+      $('#message').text(error.responseJSON.message);
+      setTimeout(() => {
+        $('#showMessage').css('display', 'none');
+      }, 3000);
+    },
+  });
 }
