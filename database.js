@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
-const Constant = require('./src/utils/constant');
+const mongoose = require("mongoose");
 
-mongoose.connect(`mongodb://localhost/${Constant.DATABASE_NAME}`, ()=>{
-    console.log(`successfully connected to database ${Constant.DATABASE_NAME}`);
-})
-module.exports = mongoose;
+let connectDB = async () => {
+	await mongoose.connect(
+		`mongodb+srv://sandeepkj90:avtsl%40sandy@cluster0.0votf7u.mongodb.net/flow-proximity-db?retryWrites=true&w=majority&appName=Cluster0`,
+	);
+};
+
+module.exports = connectDB;
